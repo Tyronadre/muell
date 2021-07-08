@@ -1,0 +1,33 @@
+.global main
+
+main:
+    push {lr}
+    ldr r0, =file
+    mov r1, #0
+    mov r2, #0666
+    mov r7, #5
+    swi 0
+    push {r0}
+
+    ldr r1, =buffer
+    mov r2, #10000
+    mov r7, #3
+    swi 0
+
+    ldr r0,=buffer
+    bl printf
+
+    pop {r0}
+
+    mov r7, #6
+    swi 0
+
+
+
+    pop {lr}
+    bx lr
+
+.data
+    file: .asciz "text.txt"
+    string: .asciz "HEY \n"
+    buffer: .skip 10000
